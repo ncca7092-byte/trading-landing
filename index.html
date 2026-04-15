@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading verstehen – Premium Landing</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050816;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    .page {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.15), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(16,185,129,0.10), transparent 25%),
+        #050816;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .hero {
+      position: relative;
+      padding: 64px 0;
+    }
+    .hero-grid {
+      display: grid;
+      gap: 40px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.70);
+      font-size: 12px;
+      animation: fadeUp 0.6s ease-out both;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+    }
+    h1, h2, p { margin: 0; }
+    h1 {
+      margin-top: 20px;
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 600;
+      animation: fadeUp 0.6s ease-out 0.05s both;
+    }
+    .lead {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.70);
+      max-width: 640px;
+      animation: fadeUp 0.6s ease-out 0.1s both;
+    }
+    .buttons {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeUp 0.6s ease-out 0.15s both;
+    }
+    .btn {
+      display: inline-block;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+    }
+    .btn:hover { transform: scale(1.02); }
+    .btn-primary {
+      background: linear-gradient(90deg, #3b82f6, #22d3ee);
+      box-shadow: 0 10px 30px rgba(59,130,246,0.35);
+    }
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.20);
+      background: transparent;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .dashboard-wrap {
+      position: relative;
+      animation: fadeUpScale 0.7s ease-out 0.15s both;
+    }
+    .dashboard-glow {
+      position: absolute;
+      inset: -16px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.20), rgba(34,211,238,0.10), transparent);
+      filter: blur(30px);
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    .dashboard-shell {
+      position: relative;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      padding: 16px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .dashboard {
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: #0b1126;
+      overflow: hidden;
+    }
+    .dash-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .dash-top .left {
+      font-size: 14px;
+      color: rgba(255,255,255,0.60);
+    }
+    .dash-top .right {
+      font-size: 12px;
+      color: #34d399;
+    }
+    .dash-content {
+      padding: 16px;
+    }
+    .chart-box {
+      position: relative;
+      height: 128px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(59,130,246,0.20), rgba(34,211,238,0.10));
+    }
+    .chart-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.4;
+      background: linear-gradient(transparent 90%, rgba(255,255,255,0.08) 100%);
+    }
+    .chart-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .stats {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 8px;
+      font-size: 12px;
+    }
+    .stat {
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 8px;
+    }
+    .stat .k {
+      color: rgba(255,255,255,0.40);
+    }
+    .stat .v {
+      margin-top: 4px;
+      color: #ffffff;
+    }
+    .visual {
+      padding-bottom: 56px;
+    }
+    .visual img {
+      width: 100%;
+      display: block;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.10);
+      object-fit: cover;
+    }
+    .transition-section {
+      text-align: center;
+      padding: 56px 20px;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+    }
+    .transition-text {
+      margin: 12px auto 0;
+      max-width: 560px;
+      color: rgba(255,255,255,0.70);
+      line-height: 1.7;
+    }
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.10);
+      margin-top: 40px;
+      padding: 24px 20px;
+      text-align: center;
+      color: rgba(255,255,255,0.50);
+      font-size: 12px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUpScale {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    @media (min-width: 640px) {
+      .container { padding-left: 24px; padding-right: 24px; }
+      .hero { padding: 80px 0; }
+      h1 { font-size: 40px; }
+      .lead { font-size: 18px; }
+      .footer { font-size: 14px; }
+    }
+    @media (min-width: 1024px) {
+      .container { padding-left: 32px; padding-right: 32px; }
+      .hero { padding: 96px 0; }
+      .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
+      h1 { font-size: 48px; }
+      h2 { font-size: 30px; }
+      .buttons {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="badge">
+              <span class="dot"></span>
+              Educational Trading Program
+            </div>
+
+            <h1>Trading verstehen – ohne Chaos, ohne Zufall</h1>
+
+            <p class="lead">
+              Die meisten starten ohne Struktur. Hier beginnt der erste Schritt zu einem klaren, reproduzierbaren Prozess.
+            </p>
+
+            <div class="buttons">
+              <a href="landing-2.html" class="btn btn-primary">Mehr Details ansehen</a>
+              <a href="landing-2.html" class="btn btn-secondary">Weiter</a>
+            </div>
+          </div>
+
+          <div class="dashboard-wrap">
+            <div class="dashboard-glow"></div>
+            <div class="dashboard-shell">
+              <div class="dashboard">
+                <div class="dash-top">
+                  <div class="left">Trading Dashboard</div>
+                  <div class="right">Live</div>
+                </div>
+
+                <div class="dash-content">
+                  <div class="chart-box">
+                    <div class="chart-grid"></div>
+                    <svg viewBox="0 0 300 100" class="chart-svg" preserveAspectRatio="none" aria-hidden="true">
+                      <polyline
+                        fill="none"
+                        stroke="#22d3ee"
+                        stroke-width="2"
+                        points="0,70 40,60 80,65 120,40 160,45 200,30 240,35 300,20"
+                      />
+                    </svg>
+                  </div>
+
+                  <div class="stats">
+                    <div class="stat">
+                      <div class="k">Risk</div>
+                      <div class="v">Controlled</div>
+                    </div>
+                    <div class="stat">
+                      <div class="k">Process</div>
+                      <div class="v">Defined</div>
+                    </div>
+                    <div class="stat">
+                      <div class="k">System</div>
+                      <div class="v">Active</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>
+    </section>
+
+    <section class="visual">
+      <div class="container">
+        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1600" alt="Trading analysis visual" />
+      </div>
+    </section>
+
+    <section class="transition-section">
+      <div class="container">
+        <h2>Der nächste Schritt</h2>
+        <p class="transition-text">
+          Sehen Sie im nächsten Schritt, wie ein strukturierter Trading-Ansatz im Detail aufgebaut wird.
+        </p>
+        <a href="landing-2.html" class="btn btn-primary" style="margin-top:20px; display:inline-block;">Zur Detailseite</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        Kein Finanzprodukt. Keine Anlageberatung.
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

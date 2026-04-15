@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading Landing 2 – Premium</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050816;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    .page {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(16,185,129,0.10), transparent 24%),
+        radial-gradient(circle at bottom, rgba(99,102,241,0.10), transparent 28%),
+        #050816;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .section { padding: 56px 0; position: relative; z-index: 1; }
+    .hero { padding: 72px 0 40px; }
+    .hero-grid {
+      display: grid;
+      gap: 40px;
+      align-items: center;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      padding: 8px 14px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.72);
+      animation: fadeUp 0.6s ease-out both;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #34d399;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      margin-top: 22px;
+      font-size: 34px;
+      line-height: 1.12;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      animation: fadeUp 0.6s ease-out 0.05s both;
+    }
+    h2 {
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .lead {
+      margin-top: 20px;
+      max-width: 760px;
+      color: rgba(255,255,255,0.70);
+      font-size: 17px;
+      line-height: 1.75;
+      animation: fadeUp 0.6s ease-out 0.1s both;
+    }
+    .buttons {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeUp 0.6s ease-out 0.15s both;
+    }
+    .btn {
+      display: inline-block;
+      text-align: center;
+      padding: 14px 22px;
+      border-radius: 16px;
+      font-weight: 600;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: scale(1.02); }
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(90deg, #3b82f6, #22d3ee);
+      box-shadow: 0 10px 40px rgba(59,130,246,0.35);
+    }
+    .btn-secondary {
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+    }
+    .muted {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+    }
+    .panel-wrap {
+      position: relative;
+      animation: fadeUpScale 0.7s ease-out 0.15s both;
+    }
+    .panel-glow {
+      position: absolute;
+      inset: -24px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.20), rgba(34,211,238,0.10), transparent);
+      filter: blur(40px);
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    .glass {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      border-radius: 30px;
+      padding: 20px;
+      backdrop-filter: blur(20px);
+    }
+    .inner {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: #0b1126;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .small { font-size: 13px; color: rgba(255,255,255,0.45); }
+    .status {
+      border: 1px solid rgba(52,211,153,0.20);
+      background: rgba(52,211,153,0.10);
+      color: #86efac;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+    .inner-content { padding: 18px; }
+    .three {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+    }
+    .mini {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .mini .k {
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.40);
+    }
+    .mini .v {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .core {
+      margin-top: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(135deg, rgba(59,130,246,0.10), rgba(34,211,238,0.10));
+      border-radius: 22px;
+      padding: 18px;
+    }
+    .core .big {
+      margin-top: 8px;
+      font-size: 22px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .stack { margin-top: 16px; display: grid; gap: 10px; }
+    .stack-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 14px 16px;
+    }
+    .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: #fff;
+      color: #050816;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex: 0 0 28px;
+      margin-top: 2px;
+    }
+    .eyebrow {
+      color: rgba(255,255,255,0.40);
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .cards4, .cards3, .grid2 {
+      display: grid;
+      gap: 18px;
+    }
+    .card {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      border-radius: 26px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+    }
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.25), rgba(34,211,238,0.20));
+      margin-bottom: 16px;
+    }
+    .card p {
+      margin-top: 10px;
+      color: rgba(255,255,255,0.70);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .list .row {
+      display: flex;
+      gap: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(10,16,34,0.80);
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .list { display: grid; gap: 12px; margin-top: 22px; }
+    .benefit-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .benefit {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(10,16,34,0.70);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .risk {
+      margin-top: 24px;
+      border: 1px solid rgba(251,191,36,0.20);
+      background: rgba(251,191,36,0.10);
+      color: #fde68a;
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .cta-box {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: #fff;
+      color: #050816;
+      border-radius: 34px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .cta-box p {
+      margin-top: 12px;
+      color: rgba(0,0,0,0.65);
+      line-height: 1.7;
+    }
+    .cta-actions { margin-top: 22px; }
+    .cta-dark {
+      display: inline-block;
+      border-radius: 16px;
+      background: #050816;
+      color: #fff;
+      padding: 14px 22px;
+      font-weight: 600;
+      transition: transform .2s ease;
+    }
+    .cta-dark:hover { transform: scale(1.02); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUpScale {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: .72; }
+      50% { opacity: 1; }
+    }
+
+    @media (min-width: 640px) {
+      .container { padding: 0 24px; }
+      .hero { padding: 84px 0 48px; }
+      h1 { font-size: 42px; }
+      h2 { font-size: 34px; }
+      .lead { font-size: 19px; }
+      .cards3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .benefit-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (min-width: 900px) {
+      .container { padding: 0 32px; }
+      .hero-grid { grid-template-columns: 1.08fr 0.92fr; }
+      .cards4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .grid2 { grid-template-columns: 1fr 1fr; }
+      .buttons { flex-direction: row; }
+      .cta-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 36px 32px;
+      }
+      .cta-actions { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="section hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="pill"><span class="dot"></span>Premium Trading Education</div>
+
+            <h1>Warum die meisten im Trading scheitern – und warum ein System den Unterschied macht</h1>
+
+            <p class="lead">
+              Die meisten scheitern nicht an Motivation, sondern an fehlender Struktur. Dieses Programm zeigt, wie Analyse, Risiko und Ausführung in einen klaren, disziplinierten Prozess gebracht werden.
+            </p>
+
+            <div class="buttons">
+              <a href="https://t.me/Elox2" target="_blank" class="btn btn-primary">Jetzt in Telegram anfragen</a>
+              <a href="https://t.me/Elox2" target="_blank" class="btn btn-secondary">Persönlich schreiben</a>
+            </div>
+
+            <div class="muted">Details zu Teilnahme, Format und Konditionen im direkten Gespräch</div>
+          </div>
+
+          <div class="panel-wrap">
+            <div class="panel-glow"></div>
+            <div class="glass">
+              <div class="inner">
+                <div class="topbar">
+                  <div>
+                    <div class="small">Market Framework</div>
+                    <div style="margin-top:4px; font-size:18px; font-weight:600;">Clarity over Noise</div>
+                  </div>
+                  <div class="status">Live Concept</div>
+                </div>
+
+                <div class="inner-content">
+                  <div class="three">
+                    <div class="mini">
+                      <div class="k">Layer 1</div>
+                      <div class="v">Context</div>
+                    </div>
+                    <div class="mini">
+                      <div class="k">Layer 2</div>
+                      <div class="v">Entry Logic</div>
+                    </div>
+                    <div class="mini">
+                      <div class="k">Layer 3</div>
+                      <div class="v">Risk Control</div>
+                    </div>
+                  </div>
+
+                  <div class="core">
+                    <div class="small">Core Idea</div>
+                    <div class="big">Ein sauberer Prozess reduziert emotionale Fehler und schafft bessere Entscheidungen.</div>
+                  </div>
+
+                  <div class="stack">
+                    <div class="stack-item"><div class="num">1</div><div>Einstieg ohne klares Regelwerk</div></div>
+                    <div class="stack-item"><div class="num">2</div><div>Emotionale Entscheidungen statt Struktur</div></div>
+                    <div class="stack-item"><div class="num">3</div><div>Fokus auf schnelle Ergebnisse statt auf Risiko</div></div>
+                    <div class="stack-item"><div class="num">4</div><div>Ständiger Wechsel der Strategie ohne System</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">Framework</div>
+        <h2>Die vier Bausteine eines professionelleren Ansatzes</h2>
+
+        <div class="cards4" style="margin-top:28px;">
+          <div class="card">
+            <div class="icon"></div>
+            <h3>Marktverständnis</h3>
+            <p>Strukturen, Phasen und Bewegungsmuster sauber lesen statt impulsiv reagieren.</p>
+          </div>
+          <div class="card">
+            <div class="icon"></div>
+            <h3>Risikomanagement</h3>
+            <p>Kapital schützen, Positionsgröße kontrollieren und Entscheidungen messbar machen.</p>
+          </div>
+          <div class="card">
+            <div class="icon"></div>
+            <h3>Regelbasierter Ablauf</h3>
+            <p>Ein klarer Prozess für Analyse, Entry, Exit und Review.</p>
+          </div>
+          <div class="card">
+            <div class="icon"></div>
+            <h3>Disziplin</h3>
+            <p>Weniger Zufall. Mehr Konsistenz im Verhalten und in der Ausführung.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid2">
+          <div class="card" style="padding:32px;">
+            <div class="eyebrow">Programminhalte</div>
+            <h2>Worum es im Detail geht</h2>
+
+            <div class="list">
+              <div class="row"><div class="num">1</div><div>Wie Marktstruktur gelesen wird und warum viele Signale falsch interpretieren</div></div>
+              <div class="row"><div class="num">2</div><div>Welche Zonen, Bestätigungen und Kontexte wirklich relevant sind</div></div>
+              <div class="row"><div class="num">3</div><div>Wie Risiko vor jedem Trade definiert wird</div></div>
+              <div class="row"><div class="num">4</div><div>Wie ein wiederholbarer Trading-Prozess aufgebaut wird</div></div>
+              <div class="row"><div class="num">5</div><div>Wie Fehler dokumentiert und systematisch reduziert werden</div></div>
+            </div>
+          </div>
+
+          <div class="card" style="padding:32px; background: linear-gradient(to bottom, rgba(255,255,255,0.10), rgba(255,255,255,0.05));">
+            <div class="eyebrow">Warum dieser Schritt sinnvoll ist</div>
+            <h2>Nicht mehr Content. Ein besseres Entscheidungssystem.</h2>
+
+            <p style="margin-top:20px; color: rgba(255,255,255,0.70); line-height: 1.8;">
+              Viele konsumieren ständig neue Inhalte, ohne daraus ein stabiles Vorgehen zu entwickeln. Ziel ist nicht mehr Input, sondern ein sauberer Ablauf, der zu Ihrer Situation passt und konsistent angewendet werden kann.
+            </p>
+
+            <div class="benefit-grid">
+              <div class="benefit">
+                <div class="small">Vorteil</div>
+                <div style="margin-top:8px; font-size:18px; font-weight:600;">Klarere Analyse</div>
+              </div>
+              <div class="benefit">
+                <div class="small">Vorteil</div>
+                <div style="margin-top:8px; font-size:18px; font-weight:600;">Weniger Impulsivität</div>
+              </div>
+              <div class="benefit">
+                <div class="small">Vorteil</div>
+                <div style="margin-top:8px; font-size:18px; font-weight:600;">Besseres Risikobewusstsein</div>
+              </div>
+              <div class="benefit">
+                <div class="small">Vorteil</div>
+                <div style="margin-top:8px; font-size:18px; font-weight:600;">Reproduzierbarer Prozess</div>
+              </div>
+            </div>
+
+            <div class="risk">
+              Wichtig: Der Handel an Finanzmärkten ist riskant. Das Programm dient der Weiterbildung und vermittelt keine individuellen Anlageempfehlungen.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card" style="padding:32px;">
+          <div class="eyebrow">Für wen das geeignet ist</div>
+          <h2>Für Personen, die ernsthaft strukturierter handeln möchten</h2>
+          <p style="margin-top:20px; color: rgba(255,255,255,0.70); max-width: 860px; line-height:1.8;">
+            Wenn Sie nicht nach schnellen Versprechen suchen, sondern nach einem nachvollziehbaren Weg, Ihre Marktanalyse und Ihr Verhalten zu verbessern, ist dies der richtige nächste Schritt.
+          </p>
+
+          <div class="cards3" style="margin-top:24px;">
+            <div class="card" style="background: rgba(10,16,34,0.70);">
+              <div class="small">Geeignet</div>
+              <div style="margin-top:8px; font-weight:600;">Für ernsthafte Einsteiger</div>
+            </div>
+            <div class="card" style="background: rgba(10,16,34,0.70);">
+              <div class="small">Sinnvoll</div>
+              <div style="margin-top:8px; font-weight:600;">Für Trader ohne klares System</div>
+            </div>
+            <div class="card" style="background: rgba(10,16,34,0.70);">
+              <div class="small">Weniger passend</div>
+              <div style="margin-top:8px; font-weight:600;">Für unrealistische Erwartungen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-bottom:80px;">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <div style="font-size:12px; letter-spacing:.22em; text-transform:uppercase; color: rgba(0,0,0,0.45);">Nächster Schritt</div>
+            <h2 style="margin-top:10px;">Schreiben Sie jetzt direkt in Telegram</h2>
+            <p>Im Gespräch erhalten Sie Details zu Ablauf, Teilnahme und den nächsten sinnvollen Schritten.</p>
+          </div>
+          <div class="cta-actions">
+            <a href="https://t.me/Elox2" target="_blank" class="cta-dark">Telegram öffnen</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
